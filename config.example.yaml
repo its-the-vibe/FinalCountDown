@@ -1,0 +1,11 @@
+events:
+  - name: "New Year 2027"
+    date: "2027-01-01"
+  - name: "Christmas 2026"
+    date: "2026-12-25"
+    time: "00:00:00"
+  - name: "Summer Solstice 2026"
+    date: "2026-06-21"
+    time: "12:00:00"
+  - name: "Halloween 2026"
+    date: "2026-10-31"
