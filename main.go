@@ -21,8 +21,9 @@ type Config struct {
 }
 
 type EventResponse struct {
-	Name   string `json:"name"`
-	Target string `json:"target"`
+	Name    string `json:"name"`
+	Target  string `json:"target"`
+	HasTime bool   `json:"has_time"`
 }
 
 func loadConfig(path string) (*Config, error) {
@@ -74,8 +75,9 @@ func main() {
 				continue
 			}
 			events = append(events, EventResponse{
-				Name:   e.Name,
-				Target: t.UTC().Format(time.RFC3339),
+				Name:    e.Name,
+				Target:  t.UTC().Format(time.RFC3339),
+				HasTime: e.Time != "",
 			})
 		}
 
