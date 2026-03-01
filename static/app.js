@@ -7,6 +7,7 @@ const daysEl = document.getElementById('days');
 const hoursEl = document.getElementById('hours');
 const minutesEl = document.getElementById('minutes');
 const secondsEl = document.getElementById('seconds');
+const hoursUnitEl = hoursEl.closest('.unit');
 const minutesUnitEl = minutesEl.closest('.unit');
 const secondsUnitEl = secondsEl.closest('.unit');
 const loadingEl = document.getElementById('loading');
@@ -62,6 +63,7 @@ function selectEvent(index) {
   displayEl.classList.add('visible');
 
   const hasTime = events[index].hasTime;
+  hoursUnitEl.hidden = !hasTime;
   minutesUnitEl.hidden = !hasTime;
   secondsUnitEl.hidden = !hasTime;
 

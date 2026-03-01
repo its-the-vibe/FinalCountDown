@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 :root {
   --bg: #0d1117;
   --surface: #161b22;
