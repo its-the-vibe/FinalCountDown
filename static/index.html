@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FinalCountDown</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>FinalCountDown</h1>
+  </header>
+  <main>
+    <nav id="event-tabs" role="tablist" aria-label="Events"></nav>
+    <section id="countdown-display" role="tabpanel">
+      <div id="event-name"></div>
+      <div id="countdown" aria-live="polite">
+        <div class="unit">
+          <span class="value" id="days">--</span>
+          <span class="label">days</span>
+        </div>
+        <div class="unit">
+          <span class="value" id="hours">--</span>
+          <span class="label">hours</span>
+        </div>
+        <div class="unit">
+          <span class="value" id="minutes">--</span>
+          <span class="label">minutes</span>
+        </div>
+        <div class="unit">
+          <span class="value" id="seconds">--</span>
+          <span class="label">seconds</span>
+        </div>
+      </div>
+    </section>
+    <p id="loading">Loading events…</p>
+    <p id="error" hidden></p>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>

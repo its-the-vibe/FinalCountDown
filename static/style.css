@@ -1,0 +1,160 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --muted: #8b949e;
+  --accent: #58a6ff;
+  --accent-hover: #79c0ff;
+  --days-color: #f0f6fc;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  width: 100%;
+  padding: 2rem 1rem 1rem;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+header h1 {
+  font-size: 2rem;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+}
+
+main {
+  width: 100%;
+  max-width: 900px;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Event tabs */
+#event-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  justify-content: center;
+}
+
+.tab-btn {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  cursor: pointer;
+  font-size: 0.95rem;
+  padding: 0.5rem 1.2rem;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.tab-btn:hover {
+  background: var(--border);
+  color: var(--accent-hover);
+}
+
+.tab-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0d1117;
+  font-weight: 600;
+}
+
+/* Countdown display */
+#countdown-display {
+  text-align: center;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+#countdown-display.visible {
+  display: flex;
+}
+
+#event-name {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--accent-hover);
+}
+
+#countdown {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.unit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.value {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-variant-numeric: tabular-nums;
+  font-weight: 700;
+  line-height: 1;
+  padding: 0.4rem 0.6rem;
+}
+
+/* Days is the most prominent element */
+#days {
+  color: var(--days-color);
+  font-size: 6rem;
+  min-width: 3ch;
+  text-align: center;
+}
+
+#hours, #minutes, #seconds {
+  color: var(--muted);
+  font-size: 2.5rem;
+  min-width: 2ch;
+  text-align: center;
+}
+
+.label {
+  color: var(--muted);
+  font-size: 0.8rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+#days + .label {
+  color: var(--text);
+  font-size: 0.9rem;
+}
+
+#loading, #error {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
+#error {
+  color: #f85149;
+}

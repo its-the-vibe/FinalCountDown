@@ -27,6 +27,13 @@ go.work.sum
 # env file
 .env
 
+# Actual config (use config.example.yaml as a template)
+config.yaml
+
+# Built binaries
+finalcountdown
+FinalCountDown
+
 # Editor/IDE
 # .idea/
 # .vscode/

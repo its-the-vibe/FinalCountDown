@@ -1,0 +1,12 @@
+services:
+  app:
+    build: .
+    ports:
+      - "${PORT:-8080}:8080"
+    volumes:
+      - ./config.yaml:/config.yaml:ro
+    environment:
+      - CONFIG_PATH=/config.yaml
+      - LISTEN_ADDR=:8080
+    read_only: true
+    restart: on-failure:10
