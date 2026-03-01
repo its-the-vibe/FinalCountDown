@@ -13,7 +13,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -trimpath -ldflags="-s -w" -o finalcountdo
 FROM scratch
 
 COPY --from=builder /build/finalcountdown /finalcountdown
-COPY static/ /static/
+# COPY static/ /static/
 
 EXPOSE 8080
 
