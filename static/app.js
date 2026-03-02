@@ -65,7 +65,7 @@ function selectEvent(index) {
 
   const event = events[index];
   const date = new Date(event.target);
-  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
+  const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
   let dateStr = date.toLocaleDateString('en-US', dateOptions);
   if (event.hasTime) {
     const timeOptions = { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' };
