@@ -10,6 +10,7 @@ const secondsEl = document.getElementById('seconds');
 const hoursUnitEl = hoursEl.closest('.unit');
 const minutesUnitEl = minutesEl.closest('.unit');
 const secondsUnitEl = secondsEl.closest('.unit');
+const eventDateEl = document.getElementById('event-date');
 const loadingEl = document.getElementById('loading');
 const errorEl = document.getElementById('error');
 
@@ -62,7 +63,17 @@ function selectEvent(index) {
   eventNameEl.textContent = events[index].name;
   displayEl.classList.add('visible');
 
-  const hasTime = events[index].hasTime;
+  const event = events[index];
+  const date = new Date(event.target);
+  const dateOptions = { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' };
+  let dateStr = date.toLocaleDateString('en-US', dateOptions);
+  if (event.hasTime) {
+    const timeOptions = { hour: 'numeric', minute: '2-digit', timeZone: 'UTC' };
+    dateStr += ', ' + date.toLocaleTimeString('en-US', timeOptions);
+  }
+  eventDateEl.textContent = dateStr;
+
+  const hasTime = event.hasTime;
   hoursUnitEl.hidden = !hasTime;
   minutesUnitEl.hidden = !hasTime;
   secondsUnitEl.hidden = !hasTime;
@@ -94,6 +105,7 @@ async function fetchEvents() {
 
     events = data.map(e => ({
       name: e.name,
+      target: e.target,
       targetMs: new Date(e.target).getTime(),
       hasTime: e.has_time,
     }));

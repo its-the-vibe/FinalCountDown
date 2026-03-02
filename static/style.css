@@ -102,6 +102,11 @@ main {
   color: var(--accent-hover);
 }
 
+#event-date {
+  color: var(--muted);
+  font-size: 1rem;
+}
+
 #countdown {
   display: flex;
   gap: 1.5rem;
