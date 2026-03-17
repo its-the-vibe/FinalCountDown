@@ -50,6 +50,29 @@ func parseTarget(e EventConfig) (time.Time, error) {
 	return time.Parse(layout, dateStr)
 }
 
+// getUpcomingEvents returns EventResponse entries for all events whose target
+// time is strictly after now, skipping events with invalid dates and events
+// that have already occurred.
+func getUpcomingEvents(events []EventConfig, now time.Time) []EventResponse {
+	result := make([]EventResponse, 0, len(events))
+	for _, e := range events {
+		t, err := parseTarget(e)
+		if err != nil {
+			log.Printf("skipping event %q: invalid date/time: %v", e.Name, err)
+			continue
+		}
+		if !t.After(now) {
+			continue
+		}
+		result = append(result, EventResponse{
+			Name:    e.Name,
+			Target:  t.UTC().Format(time.RFC3339),
+			HasTime: e.Time != "",
+		})
+	}
+	return result
+}
+
 func main() {
 	configPath := os.Getenv("CONFIG_PATH")
 	if configPath == "" {
@@ -67,19 +90,7 @@ func main() {
 			return
 		}
 
-		events := make([]EventResponse, 0, len(cfg.Events))
-		for _, e := range cfg.Events {
-			t, err := parseTarget(e)
-			if err != nil {
-				log.Printf("skipping event %q: invalid date/time: %v", e.Name, err)
-				continue
-			}
-			events = append(events, EventResponse{
-				Name:    e.Name,
-				Target:  t.UTC().Format(time.RFC3339),
-				HasTime: e.Time != "",
-			})
-		}
+		events := getUpcomingEvents(cfg.Events, time.Now().UTC())
 
 		w.Header().Set("Content-Type", "application/json")
 		w.Header().Set("Access-Control-Allow-Origin", "*")
