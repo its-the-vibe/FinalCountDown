@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 	"net/http/httptest"
+	"os"
 	"testing"
 	"time"
 )
@@ -110,6 +111,37 @@ func TestGetUpcomingEvents_TargetFormat(t *testing.T) {
 	want := "2030-06-15T08:30:00Z"
 	if got[0].Target != want {
 		t.Errorf("expected target %q, got %q", want, got[0].Target)
+	}
+}
+
+func TestLoadConfig_Valid(t *testing.T) {
+	f, err := os.CreateTemp(t.TempDir(), "config-*.yaml")
+	if err != nil {
+		t.Fatalf("failed to create temp file: %v", err)
+	}
+	defer f.Close()
+
+	content := "events:\n  - name: Test Event\n    date: 2030-12-31\n"
+	if _, err := f.WriteString(content); err != nil {
+		t.Fatalf("failed to write config: %v", err)
+	}
+
+	cfg, err := loadConfig(f.Name())
+	if err != nil {
+		t.Fatalf("unexpected error: %v", err)
+	}
+	if len(cfg.Events) != 1 {
+		t.Fatalf("expected 1 event, got %d", len(cfg.Events))
+	}
+	if cfg.Events[0].Name != "Test Event" {
+		t.Errorf("expected %q, got %q", "Test Event", cfg.Events[0].Name)
+	}
+}
+
+func TestLoadConfig_NotFound(t *testing.T) {
+	_, err := loadConfig("/nonexistent/path/config.yaml")
+	if err == nil {
+		t.Fatal("expected error for missing file, got nil")
 	}
 }
 
