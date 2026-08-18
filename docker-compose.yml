@@ -5,6 +5,7 @@ services:
     pull_policy: always
     ports:
       - "${PORT:-8080}:8080"
+    user: "${UID:-65532}:${GID:-65532}"
     volumes:
       - ./config.yaml:/config.yaml:ro
       - ./static:/static:ro
